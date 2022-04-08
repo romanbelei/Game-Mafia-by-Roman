@@ -1,11 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  getAuth,
+} from 'firebase/auth';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: 'AIzaSyDyDgzI_bPeljmgMmOE_ydsk6-uC9s-z44',
   authDomain: 'filmoteka-418dc.firebaseapp.com',
@@ -20,3 +22,63 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const auth = getAuth();
+
+const authForm = document.querySelector('#auth-form');
+const registerForm = document.querySelector('#register-form');
+const signOutBtn = document.querySelector('#signOut');
+
+registerForm.addEventListener('submit', onFormSignUp);
+authForm.addEventListener('submit', onFormSignIn);
+signOutBtn.addEventListener('click', onFormSignOut);
+
+// sign up
+// під час реєстрації потрібно:
+//  зробити автологування
+//  сховати форму реєстрації
+// сховати всі кнопки sign in, sign up
+// має зявитись sign out
+
+function onFormSignUp(e) {
+  e.preventDefault();
+  const userEmail = e.target.registerEmail.value;
+  const userPassword = e.target.registerPassword.value;
+  createUserWithEmailAndPassword(auth, userEmail, userPassword)
+    .then(userCredential => {
+      const user = userCredential.user;
+      console.log(user);
+      alert(`Успішно зареєстрований`);
+      authForm.style.display = 'none';
+      registerForm.style.display = 'none';
+    })
+    .catch(error => {
+      alert(`${error.message}`);
+    });
+}
+
+// // sign in
+function onFormSignIn(e) {
+  e.preventDefault();
+  const userEmail = e.target.logInEmail.value;
+  const userPassword = e.target.logInPassword.value;
+  signInWithEmailAndPassword(auth, userEmail, userPassword)
+    .then(() => {
+      alert(`Привіт ${userEmail}`);
+      authForm.style.display = 'none';
+      registerForm.style.display = 'none';
+    })
+    .catch(error => alert(`${error.message}`));
+}
+
+// sign out
+function onFormSignOut(e) {
+  signOut(auth)
+    .then(() => {
+      alert(`До побачення`);
+      authForm.style.display = 'block';
+      registerForm.style.display = 'block';
+    })
+    .catch(error => {
+      alert(`${error.message}`);
+    });
+}
