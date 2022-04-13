@@ -11,7 +11,10 @@ import {
 } from 'firebase/auth';
 import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { async } from '@firebase/util';
+import { renderUserList } from './renderUsers.js';
 
+// import { getData } from './qetSetDatabase.js';
+// getData();
 const firebaseConfig = {
   apiKey: 'AIzaSyCjURkTZP-hYQ003_umy1baP9wor83vepw',
   authDomain: 'mafia-game-by-roman.firebaseapp.com',
@@ -30,23 +33,38 @@ const auth = getAuth();
 const db = getDatabase(app);
 let avatar = '';
 let arrayUsers = [];
+let admin = 0;
 
 // signInAnonymos;
 const signOutBtn = document.querySelector('#signOut');
 const anonymosForm = document.querySelector('#anonymos-form');
-const signOutform = document.querySelector('#signOuts-form');
+const header = document.querySelector('#header');
+const userList = document.querySelector('.userList');
 
 signOutBtn.addEventListener('click', onFormSignOut);
 anonymosForm.addEventListener('submit', onAnonymosSignIn);
 
-signOutform.style.display = 'none';
+header.style.display = 'none';
 
 const refDb = ref(db, '/');
 onValue(refDb, data => {
   const loadData = data.val();
   const iterableObject = new IterableObject(loadData);
   arrayUsers = [...iterableObject];
+  // перевіряємо чи аватар ввійшов якщо так то рендеремо юзерів
+  if (
+    arrayUsers
+      .map(e => {
+        return e[0].toLowerCase();
+      })
+      .includes(avatar.toLowerCase())
+  ) {
+    renderUserList(arrayUsers);
+    // //вішаємо слухачів на Юзерів
+    // arrayUsers.map(e => {});
+  }
 });
+
 function onAnonymosSignIn(e) {
   e.preventDefault();
   avatar = e.target.name.value;
@@ -58,14 +76,13 @@ function onAnonymosSignIn(e) {
       .includes(avatar.toLowerCase())
   ) {
     alert(`Ім'я ${avatar} вже існує. Введіть інше ім'я. `);
-    anonymosForm.reset();
   } else {
     signInAnonymously(auth)
       .then(() => {
-        alert(`Привіт ${avatar}`);
-        set(ref(db, avatar), { role: '' });
+        set(ref(db, avatar), { role: '', admin: '' });
         anonymosForm.style.display = 'none';
-        signOutform.style.display = 'block';
+        header.style.display = 'flex';
+        userList.style.display = 'block';
       })
       .catch(error => {
         alert(`${error.message}`);
@@ -77,14 +94,23 @@ function onAnonymosSignIn(e) {
 function onFormSignOut(e) {
   signInAnonymously(auth)
     .then(() => {
-      alert(`До побачення`);
+      // alert(`До побачення`);
       set(ref(db, avatar), {});
       anonymosForm.style.display = 'block';
-      signOutform.style.display = 'none';
+      header.style.display = 'none';
+      userList.style.display = 'none';
     })
     .catch(error => {
       alert(`${error.message}`);
     });
+}
+
+function isCheck(name) {
+  return document.querySelector('input[name="' + name + '"]:checked');
+}
+
+if (avatar) {
+  console.log(isCheck('r').id);
 }
 
 class IterableObject extends Object {
