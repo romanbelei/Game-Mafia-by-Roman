@@ -4,23 +4,34 @@
       <input type="name" id="name" placeholder="Введіть ім'я" required />
       <label for="name"></label>
     </div>
-    <button type="submit" id="signInAnonymos" class="mui-btn mui-btn--raised mui-btn--primary">
-      Увійти
-    </button>
+    <button type="submit" id="signInAnonymos">Увійти</button>
   </form>
 </div>
 <header class="header" id="header">
   <h1 class="game-name">МАФІЯ</h1>
   <form class="rule" id="rule-form">
-    <button type="button" id="rule" class="mui-btn mui-btn--raised mui-btn--primary">
-      Правила
-    </button>
+    <button type="button" id="rule">Правила</button>
   </form>
   <form class="signOutform" id="signOuts-form">
-    <button type="button" id="signOut" class="mui-btn mui-btn--raised mui-btn--primary">
-      Вийти
-    </button>
+    <button type="button" id="signOut">Вийти</button>
   </form>
 </header>
-
+<h2 class="headerAdmin">Виберіть ведучого гри</h2>
 <ul class="userList"></ul>
+<p class="infoAdmin"></p>
+<form class="form-settings" id="settings-form">
+  <div class="input-setting">
+    <label for="mafia">МАФІЯ</label>
+    <input type="number" value="2" id="mafia" placeholder="Введіть кількість гравців" required />
+  </div>
+  <div class="input-setting">
+    <label for="doctor">ЛІКАР</label>
+    <input type="number" value="1" id="doctor" placeholder="Введіть кількість гравців" required />
+  </div>
+  <div class="input-setting">
+    <label for="sherif">ШЕРИФ</label>
+    <input type="number" value="1" id="sherif" placeholder="Введіть кількість гравців" required />
+  </div>
+
+  <button class="input-setting-button" type="submit" id="settings">OK</button>
+</form>

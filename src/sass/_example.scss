@@ -12,7 +12,7 @@
   margin-bottom: 10px;
   width: 300px;
 }
-.form input {
+form input {
   margin-bottom: 20px;
   height: 40px;
   border-radius: 4px;
@@ -28,7 +28,7 @@
 
 button {
   background: #2196f3;
-  width: 100px;
+  width: 70px;
   height: 30px;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 15%);
   border-radius: 4px;
@@ -46,12 +46,13 @@ button {
   justify-content: end;
   align-items: center;
   height: 60px;
+  width: 100%;
   background-color: rgb(161, 6, 6);
 }
 
 .game-name {
-  font-weight: 900;
-  font-size: 42px;
+  font-weight: 700;
+  font-size: 38px;
   letter-spacing: 0.02em;
   color: #21ecf3;
   margin-left: auto;
@@ -78,4 +79,23 @@ p {
 .radioButton {
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.input-setting {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  width: 220px;
+}
+.input-setting-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.headerAdmin,
+.infoAdmin {
+  text-align: center;
+  color: rgb(228, 99, 13);
 }

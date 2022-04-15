@@ -26,6 +26,7 @@
     "sass": "^1.32.8"
   },
   "dependencies": {
-    "firebase": "^9.6.10"
+    "firebase": "^9.6.10",
+    "lodash.shuffle": "^4.2.0"
   }
 }
