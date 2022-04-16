@@ -43,4 +43,4 @@ var e=require("process");Object.defineProperty(exports,"__esModule",{value:!0}),
 },{"lodash.shuffle":"QySV","firebase/app":"OJEJ","firebase/analytics":"JWp9","firebase/auth":"zKjx","firebase/database":"Uuoh","@firebase/util":"chA2","./renderUsers.js":"vQEv"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./auth"),require("./renderUsers");
 },{"./sass/main.scss":"clu1","./auth":"AxoZ","./renderUsers":"vQEv"}]},{},["Focm"], null)
-//# sourceMappingURL=/test-FireBase/src.62959408.js.map
+//# sourceMappingURL=/Game-Mafia-by-Roman/src.62959408.js.map
